@@ -24,9 +24,11 @@ export class Background {
         varying vec2 vUv;
         void main() {
           vec3 col = mix(uBottom, uTop, pow(vUv.y, 0.9));
-          // Subtle radial brighten that breathes with overall level.
           float r = distance(vUv, vec2(0.5));
-          col += (0.02 + uLevel * 0.06) * (1.0 - smoothstep(0.0, 0.8, r));
+          // Subtle center brighten that breathes with overall level.
+          col += (0.015 + uLevel * 0.04) * (1.0 - smoothstep(0.0, 0.8, r));
+          // Cinematic vignette so corners fall to near-black and the art pops.
+          col *= 1.0 - smoothstep(0.45, 1.05, r) * 0.85;
           gl_FragColor = vec4(col, 1.0);
         }
       `,
@@ -64,8 +66,8 @@ export class Background {
 
   setPalette(palette) {
     const lin = ({ r, g, b }) => new THREE.Color(r / 255, g / 255, b / 255).convertSRGBToLinear();
-    this.gradMat.uniforms.uTop.value = lin(palette.a).multiplyScalar(0.28);
-    this.gradMat.uniforms.uBottom.value = lin(palette.b).multiplyScalar(0.06);
+    this.gradMat.uniforms.uTop.value = lin(palette.a).multiplyScalar(0.10);
+    this.gradMat.uniforms.uBottom.value = lin(palette.b).multiplyScalar(0.02);
   }
 
   update(features, t) {
