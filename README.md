@@ -44,6 +44,34 @@ Then:
 - For the best quality export, the offline MP4 renderer is on the roadmap
   (see [`notes/03-roadmap-todo.md`](notes/03-roadmap-todo.md)).
 
+## Offline MP4 render (high quality)
+
+For a crisp, frame-accurate MP4 (instead of an in-browser WebM), use the offline
+renderer. It runs the *same* visualizer headlessly, renders every frame
+deterministically, and muxes the original audio with ffmpeg. No system ffmpeg or
+Chrome needed — `ffmpeg-static` and Puppeteer's Chromium are installed with
+`npm install`.
+
+```bash
+npm run render -- --audio "Paper Fox.wav" --image cover.png \
+  --res 1440 --fps 60 --mode particles --out exports/paperfox.mp4
+```
+
+Flags:
+- `--audio` / `--image` — local paths (`.wav`/`.mp3` and any image). **required**
+- `--res` — `720` | `1080` | `1440` (default) | `2160`
+- `--fps` — `30` | `60` (default)
+- `--mode` — `auto` (default) | `particles` | `image` | `both`
+- `--duration` / `--start` — seconds (default: whole song)
+- `--density` — particle count (default 60000)
+- `--reactivity` — music response multiplier (default 1.0)
+- `--still` — also save a single PNG frame for a quick look
+- `--out` — output path (default `exports/<image>-<res>p.mp4`)
+
+> Software WebGL (used in headless mode) is slow — expect well under real-time on
+> a CPU. A GPU machine renders far faster. Use a low `--res`/`--duration` for
+> quick look tests.
+
 ## Build a static version
 
 ```bash

@@ -39,7 +39,7 @@ export const defaultState = {
   mode: 'auto',
   reactivity: 1.0,
   morph: 0.05,
-  bloom: 0.55,
+  bloom: 0.35,
   density: 45000,
   pointSize: 2.2,
   scatter: 1.0,

@@ -26,7 +26,7 @@ export class Background {
           vec3 col = mix(uBottom, uTop, pow(vUv.y, 0.9));
           // Subtle radial brighten that breathes with overall level.
           float r = distance(vUv, vec2(0.5));
-          col += (0.06 + uLevel * 0.12) * (1.0 - smoothstep(0.0, 0.8, r));
+          col += (0.02 + uLevel * 0.06) * (1.0 - smoothstep(0.0, 0.8, r));
           gl_FragColor = vec4(col, 1.0);
         }
       `,
@@ -64,8 +64,8 @@ export class Background {
 
   setPalette(palette) {
     const lin = ({ r, g, b }) => new THREE.Color(r / 255, g / 255, b / 255).convertSRGBToLinear();
-    this.gradMat.uniforms.uTop.value = lin(palette.a).multiplyScalar(0.5);
-    this.gradMat.uniforms.uBottom.value = lin(palette.b).multiplyScalar(0.18);
+    this.gradMat.uniforms.uTop.value = lin(palette.a).multiplyScalar(0.28);
+    this.gradMat.uniforms.uBottom.value = lin(palette.b).multiplyScalar(0.06);
   }
 
   update(features, t) {

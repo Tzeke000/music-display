@@ -20,11 +20,18 @@ import { detailScore } from '../util/image.js';
  * 'auto' picks 'image' or 'particles' from the picture's visual busyness.
  */
 export class Visualizer {
-  constructor(canvas) {
-    this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+  constructor(canvas, opts = {}) {
+    // preserveDrawingBuffer is required for the offline renderer to read frames
+    // back via toDataURL; the live app leaves it off for performance.
+    this.renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: false,
+      preserveDrawingBuffer: !!opts.preserveDrawingBuffer,
+    });
     this.renderer.setClearColor(0x000000, 1);
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.05;
+    this.renderer.toneMappingExposure = 0.95;
 
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
@@ -44,14 +51,15 @@ export class Visualizer {
     // Post-processing: bloom for the glow, then color/tonemap output.
     this.composer = new EffectComposer(this.renderer);
     this.composer.addPass(new RenderPass(this.scene, this.camera));
-    this.bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.6, 0.5, 0.0);
+    // threshold > 0 so only highlights bloom (0 would flood the whole image white)
+    this.bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.28, 0.4, 0.78);
     this.composer.addPass(this.bloom);
     this.composer.addPass(new OutputPass());
 
     this.mode = 'auto';
     this.autoRotate = true;
     this.rotateSpeed = 1;
-    this.bloomBase = 0.55;
+    this.bloomBase = 0.25;
     this.fixedSize = null; // {w,h} when recording at a fixed resolution
     this._pointer = new THREE.Vector2(0, 0);
     this._tilt = new THREE.Vector2(0, 0);
@@ -104,7 +112,7 @@ export class Visualizer {
       this.plane.warp = 0.7;
       this.particles.morph = 0.06;
     } else { // particles
-      this.plane.opacity = 0.22; // faint ghost card behind the cloud
+      this.plane.opacity = 0.12; // faint ghost card behind the cloud
       this.plane.warp = 0.4;
       this.particles.morph = 0.04;
     }
@@ -131,7 +139,7 @@ export class Visualizer {
     // Subtle bass-driven push toward the camera.
     this.artGroup.position.z = features.bass * 0.25;
 
-    this.bloom.strength = this.bloomBase + features.level * 0.7 + features.beat * 0.3;
+    this.bloom.strength = this.bloomBase + features.level * 0.4 + features.beat * 0.25;
 
     this.composer.render();
   }

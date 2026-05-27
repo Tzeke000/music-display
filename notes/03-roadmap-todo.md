@@ -12,13 +12,20 @@
 - [x] In-browser recorder → WebM (canvas + audio)
 - [x] lil-gui Look & Feel panel + fixed-resolution recording
 
+## Done (v0.2 — offline renderer)
+- [x] **Offline MP4 renderer (phase 2):** `npm run render` — Puppeteer headless
+  Chrome (SwiftShader WebGL) renders the same scene frame-by-frame,
+  deterministically; offline FFT (`src/audio/offlineAnalyzer.js` + `util/fft.js`)
+  precomputes features matching the live AnalyserNode; `ffmpeg-static` muxes →
+  H.264 MP4. Feature math shared via `src/audio/features.js`.
+
 ## Next up
-- [ ] **Offline MP4 renderer (phase 2):**
-  - Precompute features with `OfflineAudioContext` (or Python/librosa).
-  - Render frames headless (Puppeteer + headless Chrome WebGL) stepping by
-    feature frame; capture PNGs.
-  - `ffmpeg` mux frames + original audio → H.264 MP4.
-  - CLI: `node tools/render <audio> <image> [--mode] [--res] [--fps]`.
+- [ ] **Phase 3 — AI per-picture auto-config:** a vision model inspects each
+  image and picks mode + tuning (subject, palette, energy). User deferred this;
+  for now Claude's own multimodal vision sets per-image defaults. When building:
+  **research open vision models on GitHub** (user asked) for an offline/cheaper
+  alternative to a hosted API; needs an API key + outbound network (may be
+  restricted in the cloud env).
 - [ ] Style presets (e.g. "Drop", "Chill", "Glitch") saved/restored.
 - [ ] Text overlay (track title / artist) toggle for the video.
 - [ ] More particle behaviors: gravity wells, audio-reactive color cycling.

@@ -84,7 +84,7 @@ export class ArtParticles {
           float d = length(c);
           float a = smoothstep(0.5, 0.08, d);
           if (a <= 0.001) discard;
-          vec3 col = vColor + vGlow * 0.5;
+          vec3 col = vColor + vGlow * 0.25;
           gl_FragColor = vec4(col, a);
         }
       `,

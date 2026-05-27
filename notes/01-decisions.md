@@ -26,6 +26,17 @@ in `src/audio/coverart.js`.
 ### 2026-05-27 — Theme to Tzeke000 brand
 Pulled palette/fonts from the artist's site repo. See [[04-brand-style]].
 
+### 2026-05-27 — Offline renderer: Puppeteer + ffmpeg-static, deterministic
+Render the same scene headlessly frame-by-frame (t = frame/fps) and pipe frames
+to ffmpeg, rather than transcoding a real-time capture. Features are precomputed
+with our own Blackman-windowed FFT replicating Web Audio's byte mapping, so the
+MP4 matches the live preview. No system ffmpeg/Chrome needed (bundled binaries).
+
+### 2026-05-27 — AI auto-config deferred to phase 3; use Claude's own vision now
+User wants AI ("Nano Banana"/Gemini) to decide per-picture rendering later. For
+now Claude inspects each image directly (multimodal) to set defaults. Research
+open GitHub vision models when building phase 3. Default render output: 1440p60.
+
 ### 2026-05-27 — Memory: Obsidian vault now + optional mem0
 This `notes/` vault is the durable memory. mem0 wired as optional/documented
 (needs API key + service), not a hard dependency. See [[05-mem0-integration]].
