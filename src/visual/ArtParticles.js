@@ -48,18 +48,19 @@ export class ArtParticles {
           vColor = aColor;
           vec3 home = position;
 
-          // How dissolved we are: baseline morph + bass + beat punch.
-          float m = clamp(uMorph + (uBass * 0.45 + uBeat * 0.35) * uReact, 0.0, 1.0);
+          // How dissolved we are: baseline morph + a gentle bass lift and a
+          // punchy beat burst, so the picture holds together and bursts on hits.
+          float m = clamp(uMorph + (uBass * 0.28 + uBeat * 0.32) * uReact, 0.0, 1.0);
           vec3 scattered = home + aScatter * uScatter;
           vec3 pos = mix(home, scattered, m);
 
           // Ripple across the picture driven by mids.
-          float wave = sin((aUv.x + aUv.y) * 14.0 + uTime * 2.5) * uMid * 0.6 * uReact;
+          float wave = sin((aUv.x + aUv.y) * 14.0 + uTime * 2.5) * uMid * 0.5 * uReact;
           pos.z += wave;
 
           // Bass pushes points outward from the center within the plane.
           vec2 dir = normalize(home.xy + 0.0001);
-          pos.xy += dir * uBass * 0.35 * (0.5 + aRnd) * uReact;
+          pos.xy += dir * uBass * 0.2 * (0.5 + aRnd) * uReact;
 
           // Treble sparkle: fine high-frequency jitter.
           pos += vec3(
