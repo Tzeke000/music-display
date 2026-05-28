@@ -40,3 +40,17 @@ open GitHub vision models when building phase 3. Default render output: 1440p60.
 ### 2026-05-27 — Memory: Obsidian vault now + optional mem0
 This `notes/` vault is the durable memory. mem0 wired as optional/documented
 (needs API key + service), not a hard dependency. See [[05-mem0-integration]].
+
+### 2026-05-28 — Auto-publisher: approval-gated, built as a framework
+User wants finished videos auto-posted to YouTube/TikTok/Instagram/X with
+per-platform tailoring, plus release campaigns (teasers → drop-day "out now" +
+smart link). Policy chosen: **approve every post**. Built `publisher/` as a
+runnable framework (mock platform proves the loop); live API wiring is the
+laptop step (sandbox is ephemeral + can't hold credentials). See [[03-roadmap-todo]].
+
+### 2026-05-28 — Platform API costs: only X charges; keep spend at $0
+YouTube, Instagram, TikTok APIs are **free** (other gates: quota, Business
+account, audit — but no fee). **X charges ~$100+/mo** for API posting. User does
+not want to spend extra. Plan: wire the free three via official APIs; for X,
+decide later between browser-automation ("post like a human", free but against
+ToS / account-risk) or posting manually. Don't pay unless the user opts in.
