@@ -1,0 +1,25 @@
+{
+  "song": "Paper Fox",
+  "smartLink": "https://example.com/paper-fox",
+  "dropAt": "2026-06-15T12:00:00Z",
+  "teasers": [
+    {
+      "daysBefore": 7,
+      "platforms": ["tiktok", "instagram"],
+      "video": "exports/tiktok/paper-fox-teaser1.mp4",
+      "caption": "working on something 👀",
+      "hashtags": ["newmusic", "wip"]
+    },
+    {
+      "daysBefore": 2,
+      "platforms": ["x", "tiktok"],
+      "video": "exports/tiktok/paper-fox-teaser2.mp4",
+      "caption": "2 days. {song} 🦊"
+    }
+  ],
+  "release": {
+    "platforms": ["youtube", "tiktok", "instagram", "x"],
+    "video": "exports/youtube/paper-fox.mp4",
+    "caption": "OUT NOW: {song} 🎧 stream it -> {smartLink}"
+  }
+}

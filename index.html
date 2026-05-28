@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tzeke000 — Music Display</title>
+    <link rel="icon" href="/tzeke000.jpg" type="image/jpeg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- The visualization renders here. Everything else is overlay UI. -->
+    <div id="stage">
+      <canvas id="scene"></canvas>
+    </div>
+
+    <!-- First-run / empty state: drag & drop or pick files -->
+    <div id="dropzone" class="dropzone">
+      <div class="dropzone__inner">
+        <h1>Music Display</h1>
+        <p class="tagline">Turn a track + your art into a 3D audio visualization. <span class="byline">Tzeke000 Studios</span></p>
+        <div class="dropzone__hint">
+          <strong>Drop a song</strong> (.mp3 / .wav) here
+          <span>— and optionally an image for the artwork</span>
+        </div>
+        <div class="dropzone__buttons">
+          <button id="pickAudio" class="btn btn--primary">Choose song…</button>
+          <button id="pickImage" class="btn">Choose art…</button>
+        </div>
+        <p class="dropzone__note">
+          If your MP3 has embedded cover art, it's used automatically.
+        </p>
+      </div>
+    </div>
+
+    <!-- Transport + actions, shown once a song is loaded -->
+    <div id="transport" class="transport hidden">
+      <button id="playPause" class="t-btn" title="Play / Pause (Space)">▶</button>
+      <div class="t-track">
+        <input id="seek" class="t-seek" type="range" min="0" max="1000" value="0" step="1" />
+        <div class="t-time"><span id="cur">0:00</span> / <span id="dur">0:00</span></div>
+      </div>
+      <div class="t-title" id="trackTitle">—</div>
+      <div class="t-actions">
+        <button id="loadMore" class="t-btn t-btn--ghost" title="Load different files">Files</button>
+        <button id="fullscreen" class="t-btn t-btn--ghost" title="Fullscreen (F)">⛶</button>
+        <button id="record" class="t-btn t-btn--rec" title="Record video">● Record</button>
+      </div>
+    </div>
+
+    <!-- Hidden file inputs driven by the buttons above -->
+    <input id="audioInput" type="file" accept="audio/*,.mp3,.wav" hidden />
+    <input id="imageInput" type="file" accept="image/*" hidden />
+
+    <!-- Recording indicator -->
+    <div id="recDot" class="rec-dot hidden">REC <span id="recTime">0:00</span></div>
+
+    <!-- Hidden <audio> element is the playback + analysis source -->
+    <audio id="audioEl" crossorigin="anonymous"></audio>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

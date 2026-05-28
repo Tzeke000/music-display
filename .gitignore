@@ -1,0 +1,28 @@
+node_modules/
+dist/
+*.local
+.DS_Store
+
+# User media / exports (don't commit large binaries)
+*.mp3
+*.wav
+*.webm
+*.mp4
+exports/
+samples/
+!notes/**/*.md
+
+# Python (offline renderer, phase 2)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Memory tooling
+.mem0/
+mem0_export.json
+
+# Publisher secrets + local runtime state (NEVER commit credentials)
+publisher/.env
+publisher/.secrets/
+publisher/.data/
