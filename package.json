@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview --host",
-    "render": "node tools/render/render.mjs"
+    "render": "node tools/render/render.mjs",
+    "pub": "node publisher/cli.mjs"
   },
   "dependencies": {
     "lil-gui": "^0.19.2",

@@ -21,3 +21,8 @@ venv/
 # Memory tooling
 .mem0/
 mem0_export.json
+
+# Publisher secrets + local runtime state (NEVER commit credentials)
+publisher/.env
+publisher/.secrets/
+publisher/.data/
